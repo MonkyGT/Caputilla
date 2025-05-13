@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caputilla", "Caputilla\Caputilla.csproj", "{5674894F-8182-40A3-B50E-F7C0A2815919}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5674894F-8182-40A3-B50E-F7C0A2815919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5674894F-8182-40A3-B50E-F7C0A2815919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5674894F-8182-40A3-B50E-F7C0A2815919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5674894F-8182-40A3-B50E-F7C0A2815919}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F2200B0-8790-4A5E-8A17-81A6521156EF}
+	EndGlobalSection
+EndGlobal
