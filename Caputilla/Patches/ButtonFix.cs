@@ -12,9 +12,13 @@ namespace Caputilla.Utils
         }
         void Update()
         {
-            if (!RoomUtils.instance.currentQueue.ToLower().Contains("modded"))
+            if (!FusionHub.selectedQueue.ToLower().Contains("modded"))
             {
                 _queueSelect.button.material = _queueSelect.defaultMat;
+            }
+            else
+            {
+                _queueSelect.button.material = _queueSelect.redMat;
             }
         }
     }

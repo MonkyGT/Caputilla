@@ -3,36 +3,35 @@ using UnityEngine;
 using Il2CppSystem;
 using Il2CppInterop.Runtime;
 using System.Collections.Generic;
+using Action = System.Action;
+using IntPtr = System.IntPtr;
 
 namespace Caputilla.Utils
 {
     public class RoomUtils : MonoBehaviour
     {
         public static RoomUtils instance;
-        public string currentQueue;
         private NetworkRunner runner;
+        public event Action OnModdedJoin, OnModdedLeave;
         public bool isInModded;
 
         private void Awake()
         {
             instance = this;
-            runner = GameObject.FindObjectOfType<NetworkRunner>();
         }
 
-        private void Update()
+        internal void OnJoinModded()
         {
-            if (!isInModded && runner.IsInSession)
+            if (FusionHub.InRoom && FusionHub.currentQueue.ToLower().Contains("modded"))
             {
-                if (currentQueue.ToLower().Contains("modded"))
-                {
-                    isInModded = true;
-                }
+                isInModded = true;
+                OnModdedJoin?.Invoke();
             }
+        }
 
-            if (isInModded && !runner.IsInSession)
-            {
-                isInModded = false;
-            }
+        internal void OnLeaveModded()
+        {
+            OnModdedLeave?.Invoke();
         }
     }
 }

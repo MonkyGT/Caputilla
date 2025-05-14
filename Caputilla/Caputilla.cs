@@ -4,16 +4,19 @@ using BepInEx.Unity.IL2CPP;
 using System.Threading.Tasks;
 using BepInEx.Logging;
 using Caputilla.Utils;
+using Fusion.Photon.Realtime;
+using Fusion.Photon.Realtime.Async;
 using HarmonyLib;
 using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.Injection;
 using Il2CppSystem.Collections.Generic;
-using Locomotion;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using IEnumerator = Il2CppSystem.Collections.IEnumerator;
+using Player = Locomotion.Player;
 
 namespace Caputilla
 {
@@ -25,9 +28,9 @@ namespace Caputilla
         public override void Load()
         {
             Harmony.CreateAndPatchAll(GetType().Assembly, ModInfo.Guid);
-            ClassInjector.RegisterTypeInIl2Cpp<RoomUtils>();
             ClassInjector.RegisterTypeInIl2Cpp<ButtonFix>();
             ClassInjector.RegisterTypeInIl2Cpp<ControllerInputManager>();
+            ClassInjector.RegisterTypeInIl2Cpp<RoomUtils>();
             AddComponent<CaputillaManager>();
         }
     }
@@ -36,8 +39,8 @@ namespace Caputilla
     {
         public static CaputillaManager Instance;
 
-        private readonly List<Il2CppSystem.Action> _onInitialized = new();
-        private bool _init = false;
+        public event Action OnGameInitialized;
+        public bool initialized = false;
         public GameObject button2;
 
         private void Awake()
@@ -47,17 +50,18 @@ namespace Caputilla
 
         private void Update()
         {
-            if (!_init && Player.Instance != null)
+            if (!initialized && Player.Instance != null)
             {
-                _init = true;
+                initialized = true;
                 OnInit();
             }
         }
 
         private void OnInit()
         {
-            this.gameObject.AddComponent(Il2CppType.Of<RoomUtils>());
-            this.gameObject.AddComponent(Il2CppType.Of<ControllerInputManager>());
+            this.gameObject.AddComponent<ControllerInputManager>();
+            this.gameObject.AddComponent<RoomUtils>();
+            OnGameInitialized?.Invoke();
             
             GameObject text = GameObject.Find("Global/Levels/ObjectNotInMaps/Stump/TableOffset/QueueBoard/Text (TMP)");
             text.GetComponent<TextMeshPro>().text = "|CASUAL\n\n|KING OF THE HILL\n\n|MODDED\n\n|???";

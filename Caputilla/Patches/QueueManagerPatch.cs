@@ -4,14 +4,6 @@ using HarmonyLib;
 
 namespace Caputilla.Patches
 {
-    [HarmonyPatch(typeof(QueueManager), "UpdateQueue")]
-    public class QueueManagerQueuePatch
-    {
-        public static void Postfix(QueueManager __instance, string queue, QueueSelect selectedQueue)
-        {
-            RoomUtils.instance.currentQueue = queue;
-        }
-    }
     [HarmonyPatch(typeof(QueueManager), "Start")]
     public class QueueManagerStartPatch
     {

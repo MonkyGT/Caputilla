@@ -199,3 +199,4 @@ C:\Users\biggaboy\Downloads\CapuchinModTemplate-main\CapuchinModTemplate-main\Ca
 C:\Users\biggaboy\Downloads\CapuchinModTemplate-main\CapuchinModTemplate-main\Caputilla\bin\Debug\netstandard2.1\Unity.XR.OpenXR.Features.MockRuntime.dll
 C:\Users\biggaboy\Downloads\CapuchinModTemplate-main\CapuchinModTemplate-main\Caputilla\bin\Debug\netstandard2.1\Unity.XR.OpenXR.Features.OculusQuestSupport.dll
 C:\Users\biggaboy\Downloads\CapuchinModTemplate-main\CapuchinModTemplate-main\Caputilla\bin\Debug\netstandard2.1\Unity.XR.OpenXR.Features.RuntimeDebugger.dll
+C:\Users\biggaboy\Downloads\CapuchinModTemplate-main\CapuchinModTemplate-main\Caputilla\obj\Debug\netstandard2.1\Caputilla.sourcelink.json
