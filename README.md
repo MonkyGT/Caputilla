@@ -7,8 +7,6 @@
 ```C#
     public class Template : MonoBehaviour
     {
-        // TRY TO PUT ALL MOD STUFF IN HERE
-
         void Start()
         {
             Caputilla.CaputillaManager.Instance.OnModdedJoin += OnJoinedModded;
