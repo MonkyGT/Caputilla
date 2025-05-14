@@ -9,8 +9,8 @@
     {
         void Start()
         {
-            Caputilla.CaputillaManager.Instance.OnModdedJoin += OnJoinedModded;
-            Caputilla.CaputillaManager.Instance.OnModdedLeave += OnLeaveModded;
+            Caputilla.Utils.RoomUtils.instance.OnModdedJoin += OnJoinedModded;
+            Caputilla.Utils.RoomUtils.instance.OnModdedLeave += OnLeaveModded;
         }
 
         void OnJoinedModded()
