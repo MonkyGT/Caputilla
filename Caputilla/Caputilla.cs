@@ -39,7 +39,7 @@ namespace Caputilla
     {
         public static CaputillaManager Instance;
 
-        public event Action OnGameInitialized;
+        public event Action OnGameInitialized, OnModdedJoin, OnModdedLeave;
         public bool initialized = false;
         public GameObject button2;
 
@@ -81,6 +81,16 @@ namespace Caputilla
             queueselet2.redMat = queueselet1.redMat;
             queueselet2.defaultMat = queueselet1.defaultMat;
             queueselet2.queue = "MODDED";
+        }
+
+        internal void InvokeModdedJoin()
+        {
+            OnModdedJoin?.Invoke();
+        }
+
+        internal void InvokeModdedLeave()
+        {
+            OnModdedLeave?.Invoke();
         }
     }
 }

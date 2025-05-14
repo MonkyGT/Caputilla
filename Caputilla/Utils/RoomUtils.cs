@@ -1,10 +1,6 @@
 ﻿using Fusion;
 using UnityEngine;
-using Il2CppSystem;
-using Il2CppInterop.Runtime;
-using System.Collections.Generic;
-using Action = System.Action;
-using IntPtr = System.IntPtr;
+
 
 namespace Caputilla.Utils
 {
@@ -12,7 +8,6 @@ namespace Caputilla.Utils
     {
         public static RoomUtils instance;
         private NetworkRunner runner;
-        public event Action OnModdedJoin, OnModdedLeave;
         public bool isInModded;
 
         private void Awake()
@@ -25,13 +20,14 @@ namespace Caputilla.Utils
             if (FusionHub.InRoom && FusionHub.currentQueue.ToLower().Contains("modded"))
             {
                 isInModded = true;
-                OnModdedJoin?.Invoke();
+                CaputillaManager.Instance.InvokeModdedJoin();
             }
         }
 
         internal void OnLeaveModded()
         {
-            OnModdedLeave?.Invoke();
+            isInModded = false;
+            CaputillaManager.Instance.InvokeModdedLeave();
         }
     }
 }

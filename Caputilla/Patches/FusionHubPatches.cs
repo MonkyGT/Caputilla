@@ -16,15 +16,12 @@ namespace CapuchinTemplate.Patches
         }
     }
 
-    [HarmonyPatch(typeof(FusionHub), "OnPlayerLeft")]
+    [HarmonyPatch(typeof(FusionHub), "Leave")]
     public class LeftRoomPatches
     {
-        public static void Postfix(FusionHub __instance, NetworkRunner runner, PlayerRef player)
+        public static void Postfix(FusionHub __instance)
         {
-            if (player == runner.LocalPlayer)
-            {
-                RoomUtils.instance.OnLeaveModded();
-            }
+            RoomUtils.instance.OnLeaveModded();
         }
     }
 }
