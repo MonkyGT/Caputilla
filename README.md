@@ -5,26 +5,25 @@
 
 ##### To use this in code do something like 
 ```C#
-bool WasInModded;
+    public class Template : MonoBehaviour
+    {
+        // TRY TO PUT ALL MOD STUFF IN HERE
 
-void Update()
+        void Start()
         {
-            if (Player.Instance != null && Caputilla.Utils.RoomUtils.instance != null)
-            {
-                if (Caputilla.Utils.RoomUtils.instance.isInModded && !wasInModded)
-                {
-                    // ACTIVATE MOD HERE
-
-                    wasInModded = true;
-                }
-
-                if (!Caputilla.Utils.RoomUtils.instance.isInModded && wasInModded)
-                {
-                    // DEACTIVATE MOD HERE
-
-                    wasInModded = false;
-                }
-            }
+            Caputilla.CaputillaManager.Instance.OnModdedJoin += OnJoinedModded;
+            Caputilla.CaputillaManager.Instance.OnModdedLeave += OnLeaveModded;
         }
+
+        void OnJoinedModded()
+        {
+            //Activate Mod Here
+        }
+
+        void OnLeaveModded()
+        {
+            //Deactivate Mod Here
+        }
+    }
 ```
-and put it in a class that *ISNT* your plugin class.
+and put make sure in the `Load()` part of the plugin class add `AddCompenent<Template>();`
