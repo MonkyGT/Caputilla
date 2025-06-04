@@ -25,3 +25,5 @@
     }
 ```
 and put make sure in the `Load()` part of the plugin class add `AddCompenent<Template>();`
+
+if you make a version of this that allows mods to work in non-modded queues, I will turn you into a cheesecake
