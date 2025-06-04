@@ -541,4 +541,8 @@
     </Reference>
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="taskkill /F /IM Capuchin.exe" ContinueOnError="true"/>
+  </Target>
+
 </Project>

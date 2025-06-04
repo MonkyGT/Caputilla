@@ -4,24 +4,21 @@ using HarmonyLib;
 
 namespace CapuchinTemplate.Patches
 {
-    [HarmonyPatch(typeof(FusionHub), "OnPlayerJoined")]
-    public class JoinedRoomPatches
-    {
-        public static void Postfix(FusionHub __instance, NetworkRunner runner, PlayerRef player)
-        {
-            if (player == runner.LocalPlayer)
-            {
-                RoomUtils.instance.OnJoinModded();
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(FusionHub), "Leave")]
-    public class LeftRoomPatches
+    [HarmonyPatch(typeof(FusionHub), "JoinedRoom")]
+    public class FusionHubPatchesJoin
     {
         public static void Postfix(FusionHub __instance)
         {
-            RoomUtils.instance.OnLeaveModded();
+            RoomUtils.instance.OnJoin();
+        }
+    }
+    
+    [HarmonyPatch(typeof(FusionHub), "Leave")]
+    public class FusionHubPatchesLeave
+    {
+        public static void Postfix(FusionHub __instance)
+        {
+            RoomUtils.instance.OnLeave();
         }
     }
 }
