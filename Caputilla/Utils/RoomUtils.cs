@@ -1,8 +1,6 @@
-﻿using System;
-using System.Net.Http;
-using System.Text;
-using Fusion;
-using Il2CppInterop.Runtime;
+﻿using Il2Cpp;
+using Il2CppFusion;
+using Il2CppSystem;
 using UnityEngine;
 
 
@@ -17,18 +15,20 @@ namespace Caputilla.Utils
         private void Awake()
         {
             instance = this;
+            FusionHub.onJoinedRoom += (Action<SessionInfo>)OnJoin;
+            FusionHub.onLeaveRoom += (Action)OnLeave;
         }
 
-        internal void OnJoin()
+        internal void OnJoin(SessionInfo session)
         {
             if (FusionHub.InRoom && FusionHub.currentQueue.ToLower().Contains("modded"))
             {
                 isInModded = true;
-                CaputillaManager.Instance.InvokeModdedJoin();
+                Caputilla.Instance.InvokeModdedJoin();
             }
             else
             {
-                CaputillaManager.Instance.InvokeNonModdedJoin();
+                Caputilla.Instance.InvokeNonModdedJoin();
             }
         }
 
@@ -37,11 +37,11 @@ namespace Caputilla.Utils
             if (isInModded)
             {
                 isInModded = false;
-                CaputillaManager.Instance.InvokeModdedLeave();
+                Caputilla.Instance.InvokeModdedLeave();
             }
             else
             {
-                CaputillaManager.Instance.InvokeNonModdedLeave();
+                Caputilla.Instance.InvokeNonModdedLeave();
             }
         }
     }

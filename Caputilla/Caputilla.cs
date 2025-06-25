@@ -1,59 +1,37 @@
 ﻿using System;
-using System.Net.Http;
-using System.Text;
-using BepInEx;
-using BepInEx.Unity.IL2CPP;
-using System.Threading.Tasks;
-using BepInEx.Logging;
+using Caputilla;
 using Caputilla.Utils;
-using Fusion;
-using Fusion.Photon.Realtime;
-using Fusion.Photon.Realtime.Async;
-using HarmonyLib;
+using Il2Cpp;
 using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.Injection;
-using Il2CppSystem.Collections.Generic;
-using Il2CppSystem.Linq;
-using TMPro;
+using Il2CppLocomotion;
+using Il2CppTMPro;
+using MelonLoader;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
-using IEnumerator = Il2CppSystem.Collections.IEnumerator;
-using Player = Locomotion.Player;
+
+[assembly: MelonInfo(typeof(Caputilla.Caputilla), ModInfo.Name, ModInfo.Version, ModInfo.Author)]
 
 namespace Caputilla
 {
-    [BepInPlugin(ModInfo.Guid, ModInfo.Name, ModInfo.Version)]
-    public class Caputilla : BasePlugin
+    public class Caputilla : MelonMod
     {
-        internal new static ManualLogSource Log;
-        
-        public override void Load()
+        public static Caputilla Instance;
+
+        public event Action OnGameInitialized, OnModdedJoin, OnModdedLeave, OnJoinedRoom, OnLeaveRoom;
+        public bool initialized;
+        public GameObject button2;
+        // Stand-in for the normal BepInEx gameObject
+        private GameObject gameObject;
+
+        public override void OnInitializeMelon()
         {
-            Harmony.CreateAndPatchAll(GetType().Assembly, ModInfo.Guid);
             ClassInjector.RegisterTypeInIl2Cpp<RoomUtils>();
             ClassInjector.RegisterTypeInIl2Cpp<ControllerInputManager>();
             ClassInjector.RegisterTypeInIl2Cpp<ButtonFix>();
-            AddComponent<CaputillaManager>();
-        }
-    }
-
-    public class CaputillaManager : MonoBehaviour
-    {
-        public static CaputillaManager Instance;
-
-        public event Action OnGameInitialized, OnModdedJoin, OnModdedLeave, OnJoinedRoom, OnLeaveRoom;
-        public bool initialized = false;
-        public GameObject button2;
-
-        private void Awake()
-        {
             Instance = this;
         }
 
-        private void Update()
+        public override void OnUpdate()
         {
             if (!initialized && Player.Instance != null)
             {
@@ -64,7 +42,8 @@ namespace Caputilla
 
         private void OnInit()
         {
-            Console.WriteLine("NASDASIDNAOSDNIOAWUDNOIAWHDNOIWAJHDOIWAJDOIWAJDOJWAIODJWIOAJDIOAWJDIOAWJDIOAWJDIOAWJDIOAWJDIOAWJIODJWIODJWIOADJIOAWDJ");
+            gameObject = new GameObject("CaputillaManager");
+            Console.WriteLine("Initializing Caputilla");
             this.gameObject.AddComponent<RoomUtils>();
             this.gameObject.AddComponent<ControllerInputManager>();
             OnGameInitialized?.Invoke();
@@ -73,7 +52,7 @@ namespace Caputilla
             text.GetComponent<TextMeshPro>().text = "|CASUAL\n\n|KING OF THE HILL\n\n|MODDED\n\n|???";
 
             GameObject button1 = GameObject.Find("Global/Levels/ObjectNotInMaps/Stump/TableOffset/QueueBoard/Casual");
-            button2 = Instantiate(button1);
+            button2 = GameObject.Instantiate(button1);
             button2.transform.parent = button1.transform.parent;
             button2.name = "Modded";
             button2.transform.position = button1.transform.parent.Find("Cube (3)").position;
@@ -107,7 +86,5 @@ namespace Caputilla
         {
             OnLeaveRoom?.Invoke();
         }
-        
-        public void WriteLine(string text, LogLevel severity = LogLevel.Debug) => Caputilla.Log.Log(severity, text);
     }
 }
