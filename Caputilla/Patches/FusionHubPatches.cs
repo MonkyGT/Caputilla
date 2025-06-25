@@ -1,5 +1,6 @@
 ﻿using Caputilla.Utils;
-using Fusion;
+using Il2Cpp;
+using Il2CppFusion;
 using HarmonyLib;
 
 namespace CapuchinTemplate.Patches
