@@ -4,12 +4,13 @@ using HarmonyLib;
 
 namespace CapuchinTemplate.Patches
 {
-    [HarmonyPatch(typeof(FusionHub), "JoinedRoom")]
+    [HarmonyPatch(typeof(FusionHub), "OnPlayerJoined")]
     public class FusionHubPatchesJoin
     {
-        public static void Postfix(FusionHub __instance)
+        public static void Postfix(FusionHub __instance, PlayerRef player)
         {
-            RoomUtils.instance.OnJoin();
+            if (FusionHub.Runner.LocalPlayer == player)
+                RoomUtils.instance.OnJoin();
         }
     }
     
