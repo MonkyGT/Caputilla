@@ -15,11 +15,9 @@ namespace Caputilla.Utils
         private void Awake()
         {
             instance = this;
-            FusionHub.onJoinedRoom += (Action<SessionInfo>)OnJoin;
-            FusionHub.onLeaveRoom += (Action)OnLeave;
         }
 
-        internal void OnJoin(SessionInfo session)
+        internal void OnJoin()
         {
             if (FusionHub.InRoom && FusionHub.currentQueue.ToLower().Contains("modded"))
             {
