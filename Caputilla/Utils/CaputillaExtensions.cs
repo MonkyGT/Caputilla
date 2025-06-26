@@ -1,4 +1,4 @@
-﻿using Il2CppInterop.Runtime.Injection;
+using Il2CppInterop.Runtime.Injection;
 using UnityEngine;
 
 namespace Caputilla.Utils;
@@ -10,23 +10,15 @@ public static class CaputillaExtensions
     {
         var component = gameObject.GetComponent<T>();
         if (component == null)
-        {
             component = gameObject.AddComponent<T>();
-        }
         return component;
     }
 
-    public static void Kill(this Object self)
-    {
-        if (self == null) return;
-        
-        Object.Destroy(self);
-    }
-    
     public static void Kill(this GameObject self)
     {
-        if (self == null) return;
+        if (self == null) 
+            return;
         
-        GameObject.Destroy(self);
+        Object.Destroy(self);
     }
 }
