@@ -1,4 +1,4 @@
-﻿using Caputilla.Utils;
+using Caputilla.Utils;
 using Il2Cpp;
 using Il2CppFusion;
 using HarmonyLib;
@@ -14,13 +14,10 @@ namespace CapuchinTemplate.Patches
                 RoomUtils.instance.OnJoin();
         }
     }
-    
+
     [HarmonyPatch(typeof(FusionHub), "Leave")]
     public class FusionHubPatchesLeave
     {
-        public static void Postfix(FusionHub __instance)
-        {
-            RoomUtils.instance.OnLeave();
-        }
+        public static void Postfix(FusionHub __instance) => RoomUtils.instance.OnLeave();
     }
 }
