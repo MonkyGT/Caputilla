@@ -1,4 +1,4 @@
-﻿using Il2Cpp;
+using Il2Cpp;
 using UnityEngine;
 
 namespace Caputilla.Utils
@@ -7,20 +7,14 @@ namespace Caputilla.Utils
     {
         private QueueSelect _queueSelect;
 
-        void Start()
-        {
-            _queueSelect = gameObject.GetComponent<QueueSelect>();
-        }
+        void Start() => _queueSelect = gameObject.GetComponent<QueueSelect>();
+        
         void Update()
         {
             if (!FusionHub.selectedQueue.ToLower().Contains("modded"))
-            {
                 _queueSelect.button.material = _queueSelect.defaultMat;
-            }
             else
-            {
                 _queueSelect.button.material = _queueSelect.redMat;
-            }
         }
     }
 }
