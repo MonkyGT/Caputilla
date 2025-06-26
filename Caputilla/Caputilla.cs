@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using Caputilla;
 using Caputilla.Utils;
 using Il2Cpp;
-using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.Injection;
 using Il2CppLocomotion;
 using Il2CppTMPro;
 using MelonLoader;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [assembly: MelonInfo(typeof(Caputilla.Caputilla), ModInfo.Name, ModInfo.Version, ModInfo.Author)]
 
@@ -19,7 +19,9 @@ namespace Caputilla
 
         public event Action OnGameInitialized, OnModdedJoin, OnModdedLeave, OnJoinedRoom, OnLeaveRoom;
         public bool initialized;
+
         public GameObject button2;
+
         // Stand-in for the normal BepInEx gameObject
         private GameObject gameObject;
 
@@ -44,16 +46,15 @@ namespace Caputilla
         {
             gameObject = new GameObject("CaputillaManager");
             Console.WriteLine("Initializing Caputilla");
-            this.gameObject.AddComponent<RoomUtils>();
-            this.gameObject.AddComponent<ControllerInputManager>();
+            gameObject.AddComponent<RoomUtils>();
+            gameObject.AddComponent<ControllerInputManager>();
             OnGameInitialized?.Invoke();
-            
+
             GameObject text = GameObject.Find("Global/Levels/ObjectNotInMaps/Stump/TableOffset/QueueBoard/Text (TMP)");
             text.GetComponent<TextMeshPro>().text = "|CASUAL\n\n|KING OF THE HILL\n\n|MODDED\n\n|???";
 
             GameObject button1 = GameObject.Find("Global/Levels/ObjectNotInMaps/Stump/TableOffset/QueueBoard/Casual");
-            button2 = GameObject.Instantiate(button1);
-            button2.transform.parent = button1.transform.parent;
+            button2 = Object.Instantiate(original: button1, parent: button1.transform.parent);
             button2.name = "Modded";
             button2.transform.position = button1.transform.parent.Find("Cube (3)").position;
             button2.transform.localScale = button1.transform.localScale;
@@ -68,23 +69,9 @@ namespace Caputilla
             queueselet2.queue = "MODDED";
         }
 
-        internal void InvokeModdedJoin()
-        {
-            OnModdedJoin?.Invoke();
-        }
-        internal void InvokeModdedLeave()
-        {
-            OnModdedLeave?.Invoke();
-        }
-
-        internal void InvokeNonModdedJoin()
-        {
-            OnJoinedRoom?.Invoke();
-        }
-
-        internal void InvokeNonModdedLeave()
-        {
-            OnLeaveRoom?.Invoke();
-        }
+        internal void InvokeModdedJoin() => OnModdedJoin?.Invoke();
+        internal void InvokeModdedLeave() => OnModdedLeave?.Invoke();
+        internal void InvokeNonModdedJoin() => OnJoinedRoom?.Invoke();
+        internal void InvokeNonModdedLeave() => OnLeaveRoom?.Invoke();
     }
 }
