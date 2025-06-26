@@ -1,4 +1,4 @@
-﻿using Il2Cpp;
+using Il2Cpp;
 using Il2CppFusion;
 using Il2CppSystem;
 using UnityEngine;
@@ -12,10 +12,7 @@ namespace Caputilla.Utils
         private NetworkRunner runner;
         public bool isInModded { get; private set; }
 
-        private void Awake()
-        {
-            instance = this;
-        }
+        private void Awake() => instance = this;
 
         internal void OnJoin()
         {
@@ -26,6 +23,7 @@ namespace Caputilla.Utils
             }
             else
             {
+                isInModded = false;
                 Caputilla.Instance.InvokeNonModdedJoin();
             }
         }
@@ -39,6 +37,7 @@ namespace Caputilla.Utils
             }
             else
             {
+                isInModded = false;
                 Caputilla.Instance.InvokeNonModdedLeave();
             }
         }
